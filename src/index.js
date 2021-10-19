@@ -5,7 +5,11 @@ import './index.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
 import Table from 'react-bootstrap/Table';
+
+import Form from 'react-bootstrap/Form'
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 class Budget extends React.Component {
 	render() {
@@ -74,7 +78,20 @@ class TransactionsTable extends React.Component {
 
 class TransactionForm extends React.Component {
 	render() {
-		return null
+		return (
+			<Row>
+			  <Col md>
+			    <FloatingLabel controlId="floatingInputGrid" label="Amount">
+			      <Form.Control size="sm" type="text" placeholder="$10.50" />
+			    </FloatingLabel>
+			  </Col>
+			  <Col md>
+			    <FloatingLabel controlId="floatingInputGrid" label="Summary">
+			      <Form.Control type="text" placeholder="Groceries - Walmart" />
+			    </FloatingLabel>
+			  </Col>
+			</Row>
+		)
 	}
 }
 
