@@ -8,11 +8,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
 class Budget extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			transactions: [],
+			overallSum: 0,
+		};
+	}
+
 	render() {
 		return (
 			<Container>
@@ -51,10 +61,6 @@ class Transaction extends React.Component {
 class TransactionsTable extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			transactions: [],
-			overallSum: 0,
-		};
 	}
 
 	render() {
@@ -96,6 +102,10 @@ class TransactionForm extends React.Component {
 			      <Form.Control type="text" placeholder="Groceries - Walmart" />
 			    </FloatingLabel>
 			  </Col>
+
+			  <Button variant="primary" type="submit">
+			  	Submit
+			  </Button>
 			</Row>
 		)
 	}
