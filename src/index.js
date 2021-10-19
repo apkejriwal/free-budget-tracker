@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -14,7 +15,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 class Budget extends React.Component {
 	render() {
 		return (
-			<Container fluid>
+			<Container>
 				<Row>
 					<Col>
 						<TransactionsTable />
