@@ -5,6 +5,7 @@ import './index.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
 
 class Budget extends React.Component {
 	render() {
@@ -24,12 +25,50 @@ class Budget extends React.Component {
 }
 
 class Transaction extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			amount: 0,
+			summary: '',
+		};
+	}
 
+	render() {
+		return (
+			<tr>
+				<td>this.state.amount</td>
+				<td>this.state.summary</td>
+			</tr>
+		)
+	};
 }
 
 class TransactionsTable extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			transactions: [],
+			overallSum: 0,
+		};
+	}
+
 	render() {
-		return null
+		const transactions = this.state.transactions
+
+		return (
+			<Table striped bordered hover>
+				<thead>
+					<tr>
+						<th> Amount </th>
+						<th> Summary </th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{transactions}
+				</tbody>
+			</Table>
+		);
 	}
 }
 
