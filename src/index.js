@@ -61,18 +61,22 @@ class TransactionsTable extends React.Component {
 		const transactions = this.state.transactions
 
 		return (
-			<Table striped bordered hover>
-				<thead>
-					<tr>
-						<th> Amount </th>
-						<th> Summary </th>
-					</tr>
-				</thead>
+			<div>
+				<h1> Budget summary </h1>
 
-				<tbody>
-					{transactions}
-				</tbody>
-			</Table>
+				<Table striped bordered hover>
+					<thead>
+						<tr>
+							<th> Amount </th>
+							<th> Summary </th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{transactions}
+					</tbody>
+				</Table>
+			</div>
 		);
 	}
 }
@@ -81,6 +85,7 @@ class TransactionForm extends React.Component {
 	render() {
 		return (
 			<Row>
+				<h1> Enter a transaction below! </h1>
 			  <Col md>
 			    <FloatingLabel controlId="floatingInputGrid" label="Amount">
 			      <Form.Control size="sm" type="text" placeholder="$10.50" />
@@ -102,5 +107,3 @@ ReactDOM.render(
 	<Budget />,
 	document.getElementById('root')
 );
-
-
