@@ -23,18 +23,62 @@ class Budget extends React.Component {
 		};
 	}
 
+	addTransaction(amount, description) {
+		const sum = this.state.overallSum
+		const newTransaction = <Transaction amount={amount} description={description} />
+
+		this.setState({
+			overallSum: sum + amount,
+			transactions: this.state.transactions.concat(newTransaction)
+		})
+	}
+
 	render() {
 		return (
 			<Container>
 				<Row>
 					<Col>
-						<TransactionsTable />
+						<TransactionsTable transactions={this.state.transactions} />
 					</Col>
 					<Col>
-						<TransactionForm />
+						<TransactionForm
+							addTransaction={(amount, description) => this.addTransaction(amount, description)}
+						/>
 					</Col>
 				</Row>
 			</Container>
+		)
+	}
+}
+
+class TransactionForm extends React.Component {
+	handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('You clicked submit.');
+    this.props.addTransaction(e.target[0].value, e.target[1].value)
+  }
+
+	render() {
+		return (
+			<Row>
+				<Form onSubmit={this.handleSubmit}>
+					<h1> Enter a transaction below! </h1>
+				  <Col md>
+				    <FloatingLabel controlId="floatingInputGrid" label="Amount">
+				      <Form.Control size="sm" type="text" placeholder="$10.50" />
+				    </FloatingLabel>
+				  </Col>
+				  <Col md>
+				    <FloatingLabel controlId="floatingInputGrid" label="Summary">
+				      <Form.Control type="text" placeholder="Groceries - Walmart" />
+				    </FloatingLabel>
+				  </Col>
+
+				  <Button variant="primary" type="submit">
+				  	Submit
+				  </Button>
+				 </Form>
+			</Row>
 		)
 	}
 }
@@ -43,28 +87,24 @@ class Transaction extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			amount: 0,
-			summary: '',
+			amount: props.amount,
+			description: props.description,
 		};
 	}
 
 	render() {
 		return (
 			<tr>
-				<td>this.state.amount</td>
-				<td>this.state.summary</td>
+				<td>{this.state.amount}</td>
+				<td>{this.state.description}</td>
 			</tr>
 		)
 	};
 }
 
 class TransactionsTable extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
-		const transactions = this.state.transactions
+		const transactions = this.props.transactions
 
 		return (
 			<div>
@@ -84,30 +124,6 @@ class TransactionsTable extends React.Component {
 				</Table>
 			</div>
 		);
-	}
-}
-
-class TransactionForm extends React.Component {
-	render() {
-		return (
-			<Row>
-				<h1> Enter a transaction below! </h1>
-			  <Col md>
-			    <FloatingLabel controlId="floatingInputGrid" label="Amount">
-			      <Form.Control size="sm" type="text" placeholder="$10.50" />
-			    </FloatingLabel>
-			  </Col>
-			  <Col md>
-			    <FloatingLabel controlId="floatingInputGrid" label="Summary">
-			      <Form.Control type="text" placeholder="Groceries - Walmart" />
-			    </FloatingLabel>
-			  </Col>
-
-			  <Button variant="primary" type="submit">
-			  	Submit
-			  </Button>
-			</Row>
-		)
 	}
 }
 
