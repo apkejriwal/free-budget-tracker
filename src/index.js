@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,42 +13,31 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 
-class Budget extends React.Component {
-	constructor(props) {
-		super(props);
+function Budget() {
+	const [transactions, setTransactions] = useState([]);
+	const [overallSum, setOverallSum] = useState(0);
 
-		this.state = {
-			transactions: [],
-			overallSum: 0,
-		};
-	}
-
-	addTransaction(amount, description) {
-		const sum = this.state.overallSum
+	function addTransaction(amount, description) {
 		const newTransaction = <Transaction amount={amount} description={description} />
 
-		this.setState({
-			overallSum: sum + amount,
-			transactions: this.state.transactions.concat(newTransaction)
-		})
-	}
+		setTransactions(transactions.concat(newTransaction))
+		setOverallSum(overallSum + amount)
+	};
 
-	render() {
-		return (
-			<Container>
-				<Row>
-					<Col>
-						<TransactionsTable transactions={this.state.transactions} />
-					</Col>
-					<Col>
-						<TransactionForm
-							addTransaction={(amount, description) => this.addTransaction(amount, description)}
-						/>
-					</Col>
-				</Row>
-			</Container>
-		)
-	}
+	return (
+		<Container>
+			<Row>
+				<Col>
+					<TransactionsTable transactions={transactions} overallSum={overallSum}/>
+				</Col>
+				<Col>
+					<TransactionForm
+						addTransaction={(amount, description) => addTransaction(amount, description)}
+					/>
+				</Col>
+			</Row>
+		</Container>
+	)
 }
 
 class TransactionForm extends React.Component {
@@ -83,24 +72,14 @@ class TransactionForm extends React.Component {
 	}
 }
 
-class Transaction extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			amount: props.amount,
-			description: props.description,
-		};
-	}
-
-	render() {
-		return (
-			<tr>
-				<td>{this.state.amount}</td>
-				<td>{this.state.description}</td>
-			</tr>
-		)
-	};
-}
+function Transaction(props) {
+	return (
+		<tr>
+			<td>{props.amount}</td>
+			<td>{props.description}</td>
+		</tr>
+	)
+};
 
 class TransactionsTable extends React.Component {
 	render() {
@@ -108,7 +87,7 @@ class TransactionsTable extends React.Component {
 
 		return (
 			<div>
-				<h1> Budget summary </h1>
+				<h1> Budget summary - {this.props.overallSum} </h1>
 
 				<Table striped bordered hover>
 					<thead>
